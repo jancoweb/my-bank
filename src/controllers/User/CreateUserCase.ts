@@ -4,7 +4,7 @@ import { ICreateUser } from './interface/CreateUser';
 const prisma = new PrismaClient();
 
 export class CreateUserCase {
-  async execute({ firstName, email, password, phone, address }: ICreateUser): Promise<User | boolean> {
+  async execute({ firstName, lastName, email, password, phone, address }: ICreateUser): Promise<User | boolean> {
     const verify = await prisma.user.findUnique({
       where: { email }
     });
@@ -16,6 +16,7 @@ export class CreateUserCase {
     const user = await prisma.user.create({
       data: {
         firstName,
+        lastName,
         email,
         password,
         phone,
