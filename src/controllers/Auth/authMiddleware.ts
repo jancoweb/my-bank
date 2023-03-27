@@ -38,8 +38,8 @@ export class Auth {
       const { password, ...user } = findUser;
       req.user = user
       next();
-    } catch (error) {
-      return res.status(401).json({ error: "Token inválido" })
+    } catch (e: any) {
+      return res.status(401).json({ error: e.message })
     }
   }
 }
