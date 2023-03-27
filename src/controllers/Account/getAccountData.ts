@@ -14,7 +14,7 @@ export class GetAcData {
 
       const account: IAccount = {
         acNumber: findAc.number,
-        balance: findAc.balance,
+        balance: Number(findAc.balance),
         firstName: findUser.firstName,
         lastName: findUser.lastName,
         email: findUser.email

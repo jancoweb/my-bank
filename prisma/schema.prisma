@@ -20,7 +20,7 @@ model User {
 model Account {
   id Int @id @default(autoincrement())
   number String @unique
-  balance Decimal @db.Decimal(10, 2)
+  balance Int
   user User @relation(fields: [userId], references: [id])
   userId Int
   income Transaction[] @relation("credited")
@@ -28,10 +28,10 @@ model Account {
 }
 model Transaction {
   id Int @id @default(autoincrement())
-  value Decimal @db.Decimal(10,2)
+  value Int
   createdAt DateTime @default(now())
-  deb Account @relation("debited",fields: [deb_ac], references: [id])
-  deb_ac Int
-  cred Account @relation("credited",fields: [cred_ac], references: [id])
-  cred_ac Int
+  deb Account? @relation("debited",fields: [deb_ac], references: [id])
+  deb_ac Int?
+  cred Account? @relation("credited",fields: [cred_ac], references: [id])
+  cred_ac Int?
 }

@@ -1,8 +1,6 @@
-import { Decimal } from "@prisma/client/runtime"
-
 export interface IAccount {
   acNumber: string
-  balance: Decimal
+  balance: number
   firstName: string
   lastName: string
   email: string
