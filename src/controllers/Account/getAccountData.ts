@@ -12,12 +12,19 @@ export class GetAcData {
       const findUser = await prisma.user.findFirst({ where: { id } });
       if (!findAc || !findUser) return res.status(404).json({ error: "Conta não encontrada" });
 
+      const findAcIncome = await prisma.transaction.findMany({ where: { cred_ac: findAc.id } });
+      const findAcOutcome = await prisma.transaction.findMany({ where: { deb_ac: findAc.id } });
+
       const account: IAccount = {
         acNumber: findAc.number,
         balance: Number(findAc.balance),
         firstName: findUser.firstName,
         lastName: findUser.lastName,
-        email: findUser.email
+        email: findUser.email,
+        transactions: {
+          income: findAcIncome,
+          outcome: findAcOutcome
+        }
       }
 
       return res.status(200).json(account)
